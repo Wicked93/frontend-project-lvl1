@@ -4,7 +4,7 @@ import {
   luckyEnd,
   loseEnd,
   getRnd,
-} from './index.js';
+} from '../index.js';
 
 export default function gcdGame() {
   welcome();

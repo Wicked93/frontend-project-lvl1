@@ -1,13 +1,17 @@
 import readlineSync from 'readline-sync';
+import {
+  welcome,
+  luckyEnd,
+  loseEnd,
+  getRnd,
+} from '../index.js';
 
 export default function evenGame() {
-  console.log('Welcome to the Brain Games!');
-  const name = readlineSync.question('May I have your name?: ');
-  console.log(`Hello, ${name}!`);
+  welcome();
   console.log('Answer "yes" if the number is even, otherwise answer "no".');
   let rightAnsw = 0;
   while (rightAnsw < 3) {
-    const rndNum = Math.floor(Math.random() * 100);
+    const rndNum = getRnd(100);
     console.log(`Question: ${rndNum}`);
     const answ = readlineSync.question('Your answer: ');
     if (rndNum % 2 === 0) {
@@ -16,7 +20,8 @@ export default function evenGame() {
         console.log('Correct');
       // eslint-disable-next-line no-else-return
       } else {
-        console.log(`'no' is wrong answer ;(. Correct answer was 'no'.\n Let's try again, ${name}!`);
+        console.log("'no' is wrong answer ;(. Correct answer was 'no'.");
+        loseEnd();
         break;
       }
     }
@@ -25,12 +30,13 @@ export default function evenGame() {
         rightAnsw += 1;
         console.log('Correct');
       } else {
-        console.log(`'yes' is wrong answer ;(. Correct answer was 'no'.\n Let's try again, ${name}!`);
+        console.log("'yes' is wrong answer ;(. Correct answer was 'no'.");
+        loseEnd();
         break;
       }
     }
   }
   if (rightAnsw === 3) {
-    return console.log(`Congratulations, ${name}!`);
+    return luckyEnd();
   }
 }

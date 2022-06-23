@@ -20,7 +20,7 @@ export default function progression() {
     }
     const hideIndex = collProgression.length - getRnd(5);
     const hideNumber = collProgression[hideIndex];
-    collProgression[hideIndex] = '...';
+    collProgression[hideIndex] = '..';
     console.log(`Question: ${collProgression}`);
     const answ = readlineSync.question('Your answer: ');
     if (Number(answ) === hideNumber) {

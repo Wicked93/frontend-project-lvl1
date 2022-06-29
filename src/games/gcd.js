@@ -1,21 +1,28 @@
-import readlineSync from 'readline-sync';
 import {
   welcome,
   luckyEnd,
   loseEnd,
-  getRnd,
+  questionGCD,
+  commomQuestion,
+  answer,
+  compareAnswers,
+  rightMessage,
+  wrongMessage,
 } from '../index.js';
+import getRnd from '../helpers.js';
 
 export default function gcdGame() {
   welcome();
-  console.log('Find the greatest common divisor of given numbers.');
+  questionGCD();
   let rightAnsw = 0;
   while (rightAnsw < 3) {
     const rndNum1 = getRnd(100);
     const rndNum2 = getRnd(100);
-    console.log(`Question: ${rndNum1} ${rndNum2}`);
-    const answ = readlineSync.question('Your answer: ');
-    const getGCD = (a, b) => {
+    commomQuestion(`${rndNum1} ${rndNum2}`);
+    const playersAnswer = Number(answer());
+    const getGCD = (num1, num2) => {
+      let a = num1;
+      let b = num2;
       if (a < b) {
         getGCD(b, a);
       }
@@ -27,17 +34,16 @@ export default function gcdGame() {
       }
       return a;
     };
-    if (Number(answ) === getGCD(rndNum1, rndNum2)) {
+    if (compareAnswers(playersAnswer, getGCD(rndNum1, rndNum2))) {
       rightAnsw += 1;
-      console.log('Correct');
-      // eslint-disable-next-line no-else-return
+      rightMessage();
     } else {
-      console.log(`'${answ}' is wrong answer ;(. Correct answer was '${getGCD(rndNum1, rndNum2)}'.`);
+      wrongMessage(playersAnswer, getGCD(rndNum1, rndNum2));
       loseEnd();
       break;
     }
   }
   if (rightAnsw === 3) {
-    return luckyEnd();
+    luckyEnd();
   }
 }

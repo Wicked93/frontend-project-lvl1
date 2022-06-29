@@ -1,42 +1,46 @@
-import readlineSync from 'readline-sync';
 import {
   welcome,
   luckyEnd,
   loseEnd,
-  getRnd,
+  questionEven,
+  commomQuestion,
+  answer,
+  compareAnswers,
+  rightMessage,
+  wrongMessage,
 } from '../index.js';
+import getRnd from '../helpers.js';
 
 export default function evenGame() {
   welcome();
-  console.log('Answer "yes" if the number is even, otherwise answer "no".');
+  questionEven();
   let rightAnsw = 0;
   while (rightAnsw < 3) {
     const rndNum = getRnd(100);
-    console.log(`Question: ${rndNum}`);
-    const answ = readlineSync.question('Your answer: ');
+    commomQuestion(rndNum);
+    const playersAnswer = answer();
     if (rndNum % 2 === 0) {
-      if (answ === 'yes') {
+      if (compareAnswers(playersAnswer, 'yes')) {
         rightAnsw += 1;
-        console.log('Correct');
-      // eslint-disable-next-line no-else-return
+        rightMessage();
       } else {
-        console.log("'no' is wrong answer ;(. Correct answer was 'no'.");
+        wrongMessage(playersAnswer, 'yes');
         loseEnd();
         break;
       }
     }
     if (rndNum % 2 !== 0) {
-      if (answ === 'no') {
+      if (compareAnswers(playersAnswer, 'no')) {
         rightAnsw += 1;
         console.log('Correct');
       } else {
-        console.log("'yes' is wrong answer ;(. Correct answer was 'no'.");
+        wrongMessage(playersAnswer, 'no');
         loseEnd();
         break;
       }
     }
   }
   if (rightAnsw === 3) {
-    return luckyEnd();
+    luckyEnd();
   }
 }

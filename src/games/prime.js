@@ -1,14 +1,19 @@
-import readlineSync from 'readline-sync';
 import {
   welcome,
   luckyEnd,
   loseEnd,
-  getRnd,
+  questionPrime,
+  commomQuestion,
+  answer,
+  compareAnswers,
+  rightMessage,
+  wrongMessage,
 } from '../index.js';
+import getRnd from '../helpers.js';
 
 export default function prime() {
   welcome();
-  console.log('What number is missing in the progression?');
+  questionPrime();
   let rightAnsw = 0;
   while (rightAnsw < 3) {
     let currentRightAnsw = 'yes';
@@ -18,19 +23,18 @@ export default function prime() {
         currentRightAnsw = 'no';
       }
     }
-    console.log(`Question: ${number}`);
-    const answ = readlineSync.question('Your answer: ');
-    if (answ === currentRightAnsw) {
+    commomQuestion(number);
+    const playersAnswer = answer();
+    if (compareAnswers(playersAnswer, currentRightAnsw)) {
       rightAnsw += 1;
-      console.log('Correct');
-    // eslint-disable-next-line no-else-return
+      rightMessage();
     } else {
-      console.log(`'${answ}' is wrong answer ;(. Correct answer was '${currentRightAnsw}'.`);
+      wrongMessage(playersAnswer, currentRightAnsw);
       loseEnd();
       break;
     }
   }
   if (rightAnsw === 3) {
-    return luckyEnd();
+    luckyEnd();
   }
 }

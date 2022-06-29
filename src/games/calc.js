@@ -1,14 +1,19 @@
-import readlineSync from 'readline-sync';
 import {
   welcome,
   luckyEnd,
   loseEnd,
-  getRnd,
+  questionCalc,
+  commomQuestion,
+  answer,
+  compareAnswers,
+  rightMessage,
+  wrongMessage,
 } from '../index.js';
+import getRnd from '../helpers.js';
 
 export default function calcGame() {
   welcome();
-  console.log('What is the result of the expression?');
+  questionCalc();
   let rightAnsw = 0;
   while (rightAnsw < 3) {
     const rndNum1 = getRnd(10);
@@ -16,20 +21,28 @@ export default function calcGame() {
     const collOperator = ['+', '-', '*'];
     const rndOperator = collOperator[getRnd(2)];
     const expression = `${rndNum1} ${rndOperator} ${rndNum2}`;
-    console.log(`Question: ${expression}`);
-    const answ = readlineSync.question('Your answer: ');
-    const result = eval(expression);
-    if (answ === result.toString()) {
+    commomQuestion(expression);
+    const result = (num1, num2) => {
+      if (rndOperator === '+') {
+        return num1 + num2;
+      }
+      if (rndOperator === '-') {
+        return num1 - num2;
+      }
+      return num1 * num2;
+    };
+    const rightAnswer = result(rndNum1, rndNum2);
+    const num1 = Number(answer());
+    if (compareAnswers(num1, rightAnswer)) {
       rightAnsw += 1;
-      console.log('Correct');
-      // eslint-disable-next-line no-else-return
+      rightMessage();
     } else {
-      console.log(`'${answ}' is wrong answer ;(. Correct answer was '${result}'.`);
+      wrongMessage(num1, rightAnswer);
       loseEnd();
       break;
     }
   }
   if (rightAnsw === 3) {
-    return luckyEnd();
+    luckyEnd();
   }
 }

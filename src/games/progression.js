@@ -1,14 +1,19 @@
-import readlineSync from 'readline-sync';
 import {
   welcome,
   luckyEnd,
   loseEnd,
-  getRnd,
+  questionProgression,
+  commomQuestion,
+  answer,
+  compareAnswers,
+  rightMessage,
+  wrongMessage,
 } from '../index.js';
+import getRnd from '../helpers.js';
 
 export default function progression() {
   welcome();
-  console.log('What number is missing in the progression?');
+  questionProgression();
   let rightAnsw = 0;
   while (rightAnsw < 3) {
     const collProgression = [];
@@ -21,19 +26,18 @@ export default function progression() {
     const hideIndex = collProgression.length - getRnd(5);
     const hideNumber = collProgression[hideIndex];
     collProgression[hideIndex] = '..';
-    console.log(`Question: ${collProgression.join(' ')}`);
-    const answ = readlineSync.question('Your answer: ');
-    if (Number(answ) === hideNumber) {
+    commomQuestion(collProgression.join(' '));
+    const playersAnswer = answer();
+    if (compareAnswers(Number(playersAnswer), hideNumber)) {
       rightAnsw += 1;
-      console.log('Correct');
-    // eslint-disable-next-line no-else-return
+      rightMessage();
     } else {
-      console.log(`'${answ}' is wrong answer ;(. Correct answer was '${hideNumber}'.`);
+      wrongMessage(playersAnswer, hideNumber);
       loseEnd();
       break;
     }
   }
   if (rightAnsw === 3) {
-    return luckyEnd();
+    luckyEnd();
   }
 }

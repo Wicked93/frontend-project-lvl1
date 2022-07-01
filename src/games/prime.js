@@ -17,7 +17,7 @@ export default function prime() {
   let rightAnsw = 0;
   while (rightAnsw < 3) {
     let currentRightAnsw = 'yes';
-    const number = getRnd(50) + 1;
+    const number = getRnd(50) + 2;
     for (let i = 2; i < number; i += 1) {
       if (number % i === 0) {
         currentRightAnsw = 'no';

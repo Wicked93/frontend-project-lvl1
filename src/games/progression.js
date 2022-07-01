@@ -23,7 +23,7 @@ export default function progression() {
       collProgression.push(collProgression[i - 1] + stepProgression);
       collProgression.sort((a, b) => a - b);
     }
-    const hideIndex = collProgression.length - getRnd(5);
+    const hideIndex = collProgression.length - getRnd(5) - 1;
     const hideNumber = collProgression[hideIndex];
     collProgression[hideIndex] = '..';
     commomQuestion(collProgression.join(' '));

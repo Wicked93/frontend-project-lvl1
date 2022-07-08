@@ -22,8 +22,8 @@ export const calcGame = () => {
   return [expression, rightAnswer];
 };
 
-const startEvenGame = () => {
+const startCalcGame = () => {
   gameRound(task, calcGame);
 };
 
-export default startEvenGame;
+export default startCalcGame;

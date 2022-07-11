@@ -1,21 +1,23 @@
 import gameRound from '../index.js';
 import getRnd from '../helpers.js';
 
-const task = 'Answer "yes" if given number is prime. Otherwise answer "no".';
+const description = 'Answer "yes" if given number is prime. Otherwise answer "no".';
 
-export const prime = () => {
-  let currentRightAnsw = 'yes';
-  const number = getRnd(50) + 2;
+const getPrimeNumber = (number) => {
   for (let i = 2; i < number; i += 1) {
     if (number % i === 0) {
-      currentRightAnsw = 'no';
+      return false;
     }
   }
-  return [number, currentRightAnsw];
+  return true;
 };
 
-const startPrimeGame = () => {
-  gameRound(task, prime);
+const prime = () => {
+  const number = getRnd(50) + 2;
+  const getRightAnswer = getPrimeNumber(number) ? 'yes' : 'no';
+  return [number, getRightAnswer];
 };
 
-export default startPrimeGame;
+export default () => {
+  gameRound(description, prime);
+};

@@ -1,9 +1,9 @@
 import gameRound from '../index.js';
 import getRnd from '../helpers.js';
 
-const task = 'Answer "yes" if the number is even, otherwise answer "no".';
+const description = 'Answer "yes" if the number is even, otherwise answer "no".';
 
-const evenNumber = (number) => {
+const getEvenNumber = (number) => {
   if (number % 2 === 0) {
     return true;
   }
@@ -12,17 +12,10 @@ const evenNumber = (number) => {
 
 export const evenGame = () => {
   const number = getRnd(100);
-  const rightAnswer = () => {
-    if (evenNumber(number)) {
-      return 'yes';
-    }
-    return 'no';
-  };
-  return [number, rightAnswer()];
+  const getRightAnswer = getEvenNumber(number) ? 'yes' : 'no';
+  return [number, getRightAnswer];
 };
 
-const startEvenGame = () => {
-  gameRound(task, evenGame);
+export default () => {
+  gameRound(description, evenGame);
 };
-
-export default startEvenGame;

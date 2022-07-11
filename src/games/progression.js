@@ -1,7 +1,7 @@
 import gameRound from '../index.js';
 import getRnd from '../helpers.js';
 
-const task = 'What number is missing in the progression?';
+const description = 'What number is missing in the progression?';
 
 export const progression = () => {
   const collProgression = [];
@@ -17,8 +17,6 @@ export const progression = () => {
   return [collProgression.join(' '), hideNumber.toString()];
 };
 
-const startProgression = () => {
-  gameRound(task, progression);
+export default () => {
+  gameRound(description, progression);
 };
-
-export default startProgression;

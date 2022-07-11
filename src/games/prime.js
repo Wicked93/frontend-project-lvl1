@@ -1,5 +1,5 @@
 import gameRound from '../index.js';
-import getRnd from '../helpers.js';
+import getRandom from '../helpers.js';
 
 const description = 'Answer "yes" if given number is prime. Otherwise answer "no".';
 
@@ -13,7 +13,7 @@ const getPrimeNumber = (number) => {
 };
 
 const prime = () => {
-  const number = getRnd(50) + 2;
+  const number = getRandom(50) + 2;
   const getRightAnswer = getPrimeNumber(number) ? 'yes' : 'no';
   return [number, getRightAnswer];
 };

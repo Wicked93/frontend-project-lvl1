@@ -1,5 +1,5 @@
 import gameRound from '../index.js';
-import getRnd from '../helpers.js';
+import getRandom from '../helpers.js';
 
 const description = 'What is the result of the expression?';
 
@@ -14,10 +14,10 @@ const calculate = (num1, num2, operator) => {
 };
 
 export const calcGame = () => {
-  const rndNum1 = getRnd(10);
-  const rndNum2 = getRnd(10);
+  const rndNum1 = getRandom(10);
+  const rndNum2 = getRandom(10);
   const collOperator = ['+', '-', '*'];
-  const rndOperator = collOperator[getRnd(2)];
+  const rndOperator = collOperator[getRandom(2)];
   const expression = `${rndNum1} ${rndOperator} ${rndNum2}`;
   const rightAnswer = calculate(rndNum1, rndNum2, rndOperator).toString();
   return [expression, rightAnswer];

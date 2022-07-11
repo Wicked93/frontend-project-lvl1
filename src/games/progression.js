@@ -3,7 +3,7 @@ import getRnd from '../helpers.js';
 
 const description = 'What number is missing in the progression?';
 
-export const progression = () => {
+const getProgression = () => {
   const collProgression = [];
   collProgression.push(getRnd(10));
   const stepProgression = getRnd(5) + 1;
@@ -11,10 +11,15 @@ export const progression = () => {
     collProgression.push(collProgression[i - 1] + stepProgression);
     collProgression.sort((a, b) => a - b);
   }
-  const hideIndex = collProgression.length - getRnd(5) - 1;
-  const hideNumber = collProgression[hideIndex];
-  collProgression[hideIndex] = '..';
-  return [collProgression.join(' '), hideNumber.toString()];
+  return collProgression;
+};
+
+export const progression = () => {
+  const currentProgression = getProgression();
+  const hideIndex = currentProgression.length - getRnd(5) - 1;
+  const hideNumber = currentProgression[hideIndex];
+  currentProgression[hideIndex] = '..';
+  return [currentProgression.join(' '), hideNumber.toString()];
 };
 
 export default () => {
